@@ -3,60 +3,9 @@ from scipy.io import wavfile # get the api
 from scipy.fftpack import fft
 from pylab import *
 from pydub import AudioSegment
-from ragas import isRagam
+from ragas import *
+from frequencyAnalysis import *
 
-
-def getMaxFrequency(filename,noteNum):
-	fs, data = wavfile.read(filename) # load the data
-	a = data.T[0] # this is a two channel soundtrack, I get the first track
-	b=[(ele/2**8.)*2-1 for ele in a] # this is 8-bit track, b is now normalized on [-1,1)
-	c = fft(b) # create a list of complex number
-	d = int(2000*len(c)*1.0/fs)
-	fAxis = [i*fs*1.0/len(c) for i in xrange(d-1)]
-	D = abs(c[:(d-1)])
-	#want to save plots at each point
-	plt.cla()
-	plt.plot(fAxis,D,'r')
-	#plt.show()
-	#need to save plot
-	plt.savefig("images_slight_gamaka/"+ str(noteNum)+".jpg")
-	for i in xrange(d-1):
-		if D[i] == max(D):
-			maxF = fAxis[i]
-			break
-	print "MAXF = ", maxF
-	return maxF
-
- 
-
-def getNoteSequence(window,filename):
-	phrase = AudioSegment.from_wav(filename)
-	i = 0
-	Notes = []
-	while window(i+1) <= len(phrase):
-		phrase[window(i):window(i+1)].export("testSong"+str(i)+".wav",format="wav")
-		maxF = getMaxFrequency("testSong"+str(i)+".wav",i) #636 is low sa freq
-		if (maxF == 0): continue
-		note = frequencyToNote(maxF)
-		Notes += [note]
-		print note
-		i += 1
-	return Notes
-
-def frequencyToNote(freq):
-    lowSa = 636
-    a = 1.057994353 #factor to get to new notes
-    print freq
-    k = math.log(freq*1.0/lowSa, a)
-    k = int(round(k))
-    notesList = (["Sa", "Ri1", "Ri2", "Ga1", "Ga2", 
-    "Ma1", "Ma2", "Pa", "Da1", "Da2", "Ni1", "Ni2"])
-    return notesList[k%12]
-    
-def window(n,t=500):
-    timeInterval = t #0.5 s = 500 mS
-    endTime =  n*timeInterval
-    return endTime 
 
 Notes = getNoteSequence(window,"testSong.wav")
 #print getNoteSequence(window,"testSong.wav")
