@@ -36,15 +36,6 @@ def addRagasToDict(textfile):
                 notesList[i] = 'D2'
         ragaDict[name] = notesList
     return ragaDict
-
-def frequencyToNote(freq):
-    lowSa = 636
-    a = 1.057994353 #factor to get to new notes
-    k = math.log(freq*1.0/lowSa, a)
-    k = int(round(k))
-    notesList = (["S", "R1", "R2", "G2", "G3", 
-    "M1", "M2", "P", "D1", "D2", "N2", "N3"])
-    return notesList[k%12]
     
 def windowFunction(n):
     timeInterval = 500 #0.5 s = 500 mS
