@@ -6,7 +6,6 @@ from pydub import AudioSegment
 from ragas import *
 from frequencyAnalysis import *
 
-
 Notes = getNoteSequence(window,"testSong.wav")
 #print getNoteSequence(window,"testSong.wav")
 print Notes
@@ -16,3 +15,5 @@ hindolam = ["Sa", "Ga1", "Ma1", "Da1", "Ni1"]
 print isRagam(Notes,0.8,mohanam)
 print isRagam(Notes,0.8,madhyamavathi)
 print isRagam(Notes,0.5,hindolam)
+
+print findPosRagams(Notes, 0.85)
