@@ -2,4 +2,4 @@
 67 | sucharithra                | S R3 G3 M2 P D1 N1 S 68 | jyothisvarUpiNi            | S R3 G3 M2 P D1 N2 S 69 | dhAtuvardhani              | S R3 G3 M2 P D1 N3 S 70 | nAsika bhUshaNi            | S R3 G3 M2 P D2 N2 S 71 | kosalam                    | S R3 G3 M2 P D2 N3 S 72 | rasikapriya                | S R3 G3 M2 P D3 N3 S 
 73 | mohanam                    | S R2 G3 P D2 S
 74 | madhyamavathi              | S R2 M1 P N2 S
-75 | hindolam                   | S G1 M1 D1 N1 S
+75 | hindolam                   | S G1 M1 D1 N1 S
