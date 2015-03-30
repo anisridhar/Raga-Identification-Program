@@ -21,7 +21,7 @@ def getMaxFrequency(filename,noteNum):
 	plt.plot(fAxis,D,'r')
 	#plt.show()
 	#need to save plot
-	plt.savefig("images_slight_gamaka/"+ str(noteNum)+".jpg")
+	plt.savefig("images2/"+ str(noteNum)+".jpg")
 	for i in xrange(d-1):
 		if D[i] == max(D):
 			maxF = fAxis[i]
@@ -43,7 +43,7 @@ def getNoteSequence(window,filename):
 		i += 1
 	return Notes
     
-def window(n,t=500):
+def window(n,t=750):
     timeInterval = t #0.5 s = 500 mS
     endTime =  n*timeInterval
     return endTime 
