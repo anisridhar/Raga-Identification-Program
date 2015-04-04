@@ -43,7 +43,7 @@ def getNoteSequence(window,filename):
 		i += 1
 	return Notes
     
-def window(n,t=750):
+def window(n,t=400):
     timeInterval = t #0.5 s = 500 mS
     endTime =  n*timeInterval
     return endTime 

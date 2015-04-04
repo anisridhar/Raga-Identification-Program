@@ -20,7 +20,7 @@ print Notes
 mohanam = ["Sa", "Ri2", "Ga2", "Pa", "Da2"]
 madhyamavathi = ["Sa", "Ri2", "Ma1", "Pa", "Ni2"]
 hindolam = ["Sa", "Ga1", "Ma1", "Da1", "Ni1"]
-# print isRagam(Notes,0.8,mohanam)
-# print isRagam(Notes,0.8,madhyamavathi)
-# print isRagam(Notes,0.5,hindolam)
+print isRagam(Notes,0.8,mohanam)
+print isRagam(Notes,0.8,madhyamavathi)
+print isRagam(Notes,0.5,hindolam)
 print findPosRagams(Notes, 0.85)

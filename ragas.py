@@ -43,7 +43,7 @@ def addRagasToDict(textfile):
 def isRagam2(notesList, thresholdPercentage, ragam):
     #takes in a list of notes, thresholdPercentage, ragam name (string)
     #to determine whether a list of notes is a particular ragam
-    ragaDict = addRagasToDict("/Users/vivekshankar/Documents/Raga Identifying Program/RagaDatabase.txt")
+    ragaDict = addRagasToDict("RagaDatabase.txt")
     ragaNotes = ragaDict[ragam] #raga arohanam"
     numRagam = 0
     for note in notesList:
@@ -53,7 +53,7 @@ def isRagam2(notesList, thresholdPercentage, ragam):
     return percentageRagam >= thresholdPercentage
     
 def findPosRagams(notesList, thresholdPercentage):
-    ragaDict = addRagasToDict("/Users/vivekshankar/Documents/Raga Identifying Program/RagaDatabase.txt")
+    ragaDict = addRagasToDict("RagaDatabase.txt")
     posRagas = []
     for ragam in ragaDict:
         ragaNotes = ragaDict[ragam]
@@ -81,7 +81,7 @@ def frequencyToNote(freq):
     return notesList[k%12]
     
 def windowFunction(n):
-    timeInterval = 500 #0.5 s = 500 mS
+    timeInterval = 250 #0.5 s = 500 mS
     endTime =  n*timeInterval
     return endTime
 
