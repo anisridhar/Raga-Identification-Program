@@ -34,10 +34,10 @@ def getMaxFrequency(filename,noteNum):
 	return maxF
 
 def getNoteSequence(window,filename):
-	phrase = AudioSegment.from_wav(filename)
+	# phrase = AudioSegment.from_wav(filename)
 	i = 0
 	Notes = []
-	intervals = window(phrase)
+	(intervals,phrase) = window(filename)
 	for part in xrange(len(intervals)):
 		phrase[intervals[part][0]:intervals[part][1]].export("testSong"+str(i)+".wav",format="wav")
 		maxF = getMaxFrequency("testSong"+str(i)+".wav",i) #636 is low sa freq

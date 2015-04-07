@@ -39,10 +39,12 @@ def getTimePlots(filename,noteNum):
 	c = [abs(e) for e in b]
 	plt.cla()
 	plt.plot(range(len(a)),c,'b')
-	findBreaks(b,plt)
+	interval = findBreaks(b,plt)
 	plt.savefig("images3/FULL_"+str(noteNum)+".jpg")
+	return interval
+
 
 def main(filename):
-	getTimePlots(filename,0)
+	return getTimePlots(filename,0)
 
 main("testSong.wav")
