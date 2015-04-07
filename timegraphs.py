@@ -6,21 +6,30 @@ from pylab import *
 def findBreaks2 (b,plt):
 	data = [abs(e)-50 for e in b]
 
+def getInterval(bp,data):
+	intervalList = []
+	for i in xrange(len(bp)-1):
+		samplePt = (bp[i] + bp[i+1])/2
+		if data[samplePt] > 0: intervalList += [(bp[i],bp[i+1])]
+	return intervalList
 
 def findBreaks(b,plt):
 	data = [abs(e)-50 for e in b]
 	#find set of points below 0
 	minPoints = []
+	boundaryPoints = []
 	for i in xrange(len(data)):
 		if data[i] < 0: minPoints += [i]
 	for i in xrange(0,len(data),1000):
-		for a in xrange(max(0,i-50),min(len(data),i+50)):
+		for a in xrange(max(0,i-10),min(len(data),i+10)):
 			if a not in minPoints:
 				foundVal = False
 				break
 			foundVal = True
 		if foundVal:
 			plt.plot([i]*500,range(500),'r')
+			boundaryPoints += [i]
+	return getInterval(boundaryPoints,data)
 
 def getTimePlots(filename,noteNum):
 	fs, data = wavfile.read(filename)

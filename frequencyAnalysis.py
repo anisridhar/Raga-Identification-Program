@@ -36,8 +36,8 @@ def getNoteSequence(window,filename):
 	phrase = AudioSegment.from_wav(filename)
 	i = 0
 	Notes = []
-	while window(i+1) <= len(phrase):
-		phrase[window(i):window(i+1)].export("testSong"+str(i)+".wav",format="wav")
+	while window(i)[1] <= len(phrase):
+		phrase[window(i)[0]:window(i)[1]].export("testSong"+str(i)+".wav",format="wav")
 		maxF = getMaxFrequency("testSong"+str(i)+".wav",i) #636 is low sa freq
 		if (maxF == 0): continue
 		note = frequencyToNote(maxF)
@@ -48,8 +48,8 @@ def getNoteSequence(window,filename):
     
 def window(n,t=400):
     timeInterval = t #0.5 s = 500 mS
-    endTime =  n*timeInterval
-    return endTime 
+    interval =  (n*timeInterval,(n+1)*timeInterval)
+    return interval
 """
 Notes = getNoteSequence(window,"testSong.wav")
 #print getNoteSequence(window,"testSong.wav")
