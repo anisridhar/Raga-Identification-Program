@@ -26,6 +26,9 @@ def getMaxFrequency(filename,noteNum):
 		if D[i] == max(D):
 			maxF = fAxis[i]
 			break
+	plt.cla()
+	plt.plot(range(len(a)),b)
+	plt.savefig("images3/"+str(noteNum)+".jpg")
 	print "MAXF = ", maxF
 	return maxF
 

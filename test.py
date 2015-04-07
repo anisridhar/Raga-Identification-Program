@@ -11,7 +11,7 @@ from pydubtest import play
 
 # song = AudioSegment.from_wav("mohanamPhrase1.wav")
 
-song = AudioSegment.from_wav('mohanamPhrase1.wav')[1700:4000]
+song = AudioSegment.from_wav('mohanamPhrase1.wav')[1800:4000]
 play(song)
 # play(song[1500:4000])
 # play(song[4500:8000])
