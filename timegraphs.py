@@ -9,9 +9,10 @@ def findBreaks2 (b,plt):
 def getInterval(bp,data):
 	intervalList = []
 	for i in xrange(len(bp)-1):
-		samplePt = (bp[i] + bp[i+1])/2
-		if data[samplePt] > 0: intervalList += [(bp[i],bp[i+1])]
-	return intervalList
+		if max(data[bp[i]:bp[i+1]]) > 0: intervalList += [(bp[i],bp[i+1])]
+		# samplePt = (bp[i] + bp[i+1])/2
+		# if data[samplePt] > 0: intervalList += [(bp[i],bp[i+1])]
+	return (intervalList,len(data))
 
 def findBreaks(b,plt):
 	data = [abs(e)-50 for e in b]
@@ -39,12 +40,12 @@ def getTimePlots(filename,noteNum):
 	c = [abs(e) for e in b]
 	plt.cla()
 	plt.plot(range(len(a)),c,'b')
-	interval = findBreaks(b,plt)
+	databundle = findBreaks(b,plt)
 	plt.savefig("images3/FULL_"+str(noteNum)+".jpg")
-	return interval
+	return databundle
 
 
 def main(filename):
 	return getTimePlots(filename,0)
 
-main("testSong.wav")
+# print main("testSong.wav")

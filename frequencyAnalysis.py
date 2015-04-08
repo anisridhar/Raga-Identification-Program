@@ -45,6 +45,7 @@ def getNoteSequence(window,filename):
 		note = frequencyToNote(maxF)
 		Notes += [note]
 		print note
+		i += 1
 	return Notes
 
 	'''

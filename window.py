@@ -22,11 +22,20 @@ def window_time(filename,t=400):
 		i += 1
 	return (intervals,phrase)
 
-def window_timeDomain(filename): pass
-
+def window_timeDomain(filename):
+	phrase = AudioSegment.from_wav(filename)
+	duration = len(phrase) #in milliseconds
+	(intervals,num_points) = main(filename)
+	time_per_point = 1.0*duration/num_points
+	for i in xrange(len(intervals)):
+		newPart0 = intervals[i][0]*time_per_point
+		newPart1 = intervals[i][1]*time_per_point
+		intervals[i] = (newPart0,newPart1)
+	print intervals
+	return (intervals,phrase)
 
 
 #actual window function being used in application
 def window(filename):
-	return window_time(filename)
+	return window_timeDomain(filename)
 
