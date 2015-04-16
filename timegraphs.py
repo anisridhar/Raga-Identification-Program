@@ -3,10 +3,18 @@ from scipy.io import wavfile # get the api
 from scipy.fftpack import fft
 from pylab import *
 
-def findBreaks2 (b,plt):
-	data = [abs(e)-50 for e in b]
+def getAverage(bp):
+	difList = [(bp[i+1]-bp[i]) for i in xrange(len(bp)-1)]
+	return (difList,sum(difList)/len(difList))
 
 def getInterval(bp,data):
+	intervalList = []
+	(difList,av) = getAverage(bp)
+	for i in xrange(len(bp)-1):
+		if difList[i] > av: intervalList += [(bp[i],bp[i+1])]
+	return (intervalList,len(data))
+
+def getInterval2(bp,data):
 	intervalList = []
 	for i in xrange(len(bp)-1):
 		if max(data[bp[i]:bp[i+1]]) > 0: intervalList += [(bp[i],bp[i+1])]
@@ -19,11 +27,11 @@ def findBreaks(b,plt):
 	#find set of points below 0
 	minPoints = []
 	boundaryPoints = []
-	for i in xrange(len(data)):
-		if data[i] < 0: minPoints += [i]
+	# for i in xrange(len(data)):
+	# 	if data[i] < 0: minPoints += [i]
 	for i in xrange(0,len(data),1000):
 		for a in xrange(max(0,i-10),min(len(data),i+10)):
-			if a not in minPoints:
+			if data[a]>0:
 				foundVal = False
 				break
 			foundVal = True
