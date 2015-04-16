@@ -6,6 +6,7 @@ from scipy.fftpack import fft
 from pylab import *
 from pydub import AudioSegment
 from ragas import *
+from window import window
 
 
 def getMaxFrequency(filename,noteNum):
@@ -33,11 +34,12 @@ def getMaxFrequency(filename,noteNum):
 	return maxF
 
 def getNoteSequence(window,filename):
-	phrase = AudioSegment.from_wav(filename)
+	# phrase = AudioSegment.from_wav(filename)
 	i = 0
 	Notes = []
-	while window(i+1) <= len(phrase):
-		phrase[window(i):window(i+1)].export("testSong"+str(i)+".wav",format="wav")
+	(intervals,phrase) = window(filename)
+	for part in xrange(len(intervals)):
+		phrase[intervals[part][0]:intervals[part][1]].export("testSong"+str(i)+".wav",format="wav")
 		maxF = getMaxFrequency("testSong"+str(i)+".wav",i) #636 is low sa freq
 		if (maxF == 0): continue
 		note = frequencyToNote(maxF)
@@ -45,11 +47,24 @@ def getNoteSequence(window,filename):
 		print note
 		i += 1
 	return Notes
+
+	'''
+
+	while window(i,phrase)[1] <= len(phrase):
+		phrase[window(i,phrase)[0]:window(i,phrase)[1]].export("testSong"+str(i)+".wav",format="wav")
+		maxF = getMaxFrequency("testSong"+str(i)+".wav",i) #636 is low sa freq
+		if (maxF == 0): continue
+		note = frequencyToNote(maxF)
+		Notes += [note]
+		print note
+		i += 1
+	return Notes
+	'''
     
-def window(n,t=400):
-    timeInterval = t #0.5 s = 500 mS
-    endTime =  n*timeInterval
-    return endTime 
+# def window(n,t=400):
+#     timeInterval = t #0.5 s = 500 mS
+#     interval =  (n*timeInterval,(n+1)*timeInterval)
+#     return interval
 """
 Notes = getNoteSequence(window,"testSong.wav")
 #print getNoteSequence(window,"testSong.wav")
