@@ -9,6 +9,17 @@ from ragas import *
 from window import window
 
 
+def getFFT(filename):
+	fs, data = wavfile.read(filename)
+	a = data.T[0]
+	b=[(ele/2**8.)*2-1 for ele in a] # this is 8-bit track, b is now normalized on [-1,1)
+	c = fft(b) # create a list of complex number
+	d = int(2000*len(c)*1.0/fs)
+	fAxis = [i*fs*1.0/len(c) for i in xrange(d-1)]
+	D = abs(c[:(d-1)])
+	return (D,fAxis,fs)
+
+
 def getMaxFrequency(filename,noteNum):
 	fs, data = wavfile.read(filename) # load the data
 	a = data.T[0] # this is a two channel soundtrack, I get the first track
@@ -38,7 +49,7 @@ def getNoteSequence(window,filename):
 	i = 0
 	Notes = []
 	#exporting time graph and frequency graph
-	getMaxFrequency(filename,"TOTAL")
+	# getMaxFrequency(filename,"TOTAL2")
 	(intervals,phrase) = window(filename)
 	for part in xrange(len(intervals)):
 		phrase[intervals[part][0]:intervals[part][1]].export("testSong"+str(i)+".wav",format="wav")
