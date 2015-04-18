@@ -6,6 +6,7 @@ from pydub import AudioSegment
 from ragas import *
 from frequencyAnalysis import *
 from window import window
+import sys
 
 
 
@@ -14,8 +15,10 @@ from window import window
 
 ###################################################################
 ####################### Main Function##############################
-
-Notes = getNoteSequence(window,"testSong.wav")
+print sys.argv[1]
+filename = sys.argv[1]
+# Notes = getNoteSequence(window,"testSong.wav")
+Notes = getNoteSequence(window,filename)
 #print getNoteSequence(window,"testSong.wav")
 print Notes
 mohanam = ["Sa", "Ri2", "Ga2", "Pa", "Da2"]

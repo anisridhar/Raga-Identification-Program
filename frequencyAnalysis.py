@@ -22,14 +22,14 @@ def getMaxFrequency(filename,noteNum):
 	plt.plot(fAxis,D,'r')
 	#plt.show()
 	#need to save plot
-	plt.savefig("images2/"+ str(noteNum)+".jpg")
+	plt.savefig("images2/"+ noteNum+".jpg")
 	for i in xrange(d-1):
 		if D[i] == max(D):
 			maxF = fAxis[i]
 			break
 	plt.cla()
 	plt.plot(range(len(a)),b)
-	plt.savefig("images3/"+str(noteNum)+".jpg")
+	plt.savefig("images3/"+noteNum+".jpg")
 	print "MAXF = ", maxF
 	return maxF
 
@@ -37,10 +37,12 @@ def getNoteSequence(window,filename):
 	# phrase = AudioSegment.from_wav(filename)
 	i = 0
 	Notes = []
+	#exporting time graph and frequency graph
+	getMaxFrequency(filename,"TOTAL")
 	(intervals,phrase) = window(filename)
 	for part in xrange(len(intervals)):
 		phrase[intervals[part][0]:intervals[part][1]].export("testSong"+str(i)+".wav",format="wav")
-		maxF = getMaxFrequency("testSong"+str(i)+".wav",i) #636 is low sa freq
+		maxF = getMaxFrequency("testSong"+str(i)+".wav",str(i)) #636 is low sa freq
 		if (maxF == 0): continue
 		note = frequencyToNote(maxF)
 		Notes += [note]
