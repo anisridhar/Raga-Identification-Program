@@ -12,7 +12,7 @@ import sys
 
 def savePlot(f,axis,outname):
 	plt.cla()
-	plt.plot(axis,f)
+	plt.plot(axis[len(f)/3:len(f)*2/3],f[len(f)/3:len(f)*2/3])
 	plt.savefig(outname)
 
 def normalizeData(f1,axis1,f2,axis2):
