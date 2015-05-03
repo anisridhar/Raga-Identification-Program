@@ -9,12 +9,12 @@ from ragas import *
 from window import window
 
 
-def getFFT(filename):
+def getFFT(filename,UB=2000):
 	fs, data = wavfile.read(filename)
 	a = data.T[0]
 	b=[(ele/2**8.)*2-1 for ele in a] # this is 8-bit track, b is now normalized on [-1,1)
 	c = fft(b) # create a list of complex number
-	d = int(2000*len(c)*1.0/fs)
+	d = int(UB*len(c)*1.0/fs)
 	fAxis = [i*fs*1.0/len(c) for i in xrange(d-1)]
 	D = abs(c[:(d-1)])
 	return (D,fAxis,fs)
@@ -25,7 +25,7 @@ def getMaxFrequency(filename,noteNum):
 	a = data.T[0] # this is a two channel soundtrack, I get the first track
 	b=[(ele/2**8.)*2-1 for ele in a] # this is 8-bit track, b is now normalized on [-1,1)
 	c = fft(b) # create a list of complex number
-	d = int(2000*len(c)*1.0/fs)
+	d = int(1500*len(c)*1.0/fs)
 	fAxis = [i*fs*1.0/len(c) for i in xrange(d-1)]
 	D = abs(c[:(d-1)])
 	#want to save plots at each point

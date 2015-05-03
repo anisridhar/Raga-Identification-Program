@@ -18,7 +18,7 @@ import sys
 print sys.argv[1]
 filename = sys.argv[1]
 #OPTION: only generate graphs
-getMaxFrequency(filename,"TEST3")
+getMaxFrequency(filename,"TEST5")
 # Notes = getNoteSequence(window,"testSong.wav")
 Notes = getNoteSequence(window,filename)
 #print getNoteSequence(window,"testSong.wav")

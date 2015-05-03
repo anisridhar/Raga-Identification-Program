@@ -12,7 +12,7 @@ from pydubtest import play
 # song = AudioSegment.from_wav("mohanamPhrase1.wav")
 
 #song = AudioSegment.from_wav('sbaranam_phrases_gamaka.wav')[15000:16000]
-song = AudioSegment.from_wav('sbaranam_phrases_gamaka.wav')[15000:15700]
+song = AudioSegment.from_wav('SANK_SAMPLES/ri10.wav')[1000:3000]
 play(song)
 # play(song[1500:4000])
 # play(song[4500:8000])
@@ -23,7 +23,7 @@ play(song)
 # play(song[5500:8000])
 
 
-song.export("sbaranam/sbaranam_ri1.wav",format="wav")
+song.export("SANK_PHRASES/ri10.wav",format="wav")
 
 # print data1
 
