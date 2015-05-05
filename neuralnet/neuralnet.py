@@ -17,7 +17,8 @@ class NeuralNetwork:
 		self.numLayers = len(neurons)
 		self.neurons = neurons
 		self.numNeurons = sum(neurons)
-		self.numInput = neurons[0];
+		self.numInput = neurons[0]
+		print "numInput = ",self.numInput
 		self.numOutput = neurons[len(neurons)-1]
 		self.weights = weights
 		self.biases = biases
@@ -111,6 +112,7 @@ class NeuralNetwork:
 	# Evaluate an input array with the neural network
 	def eval(self, input):
 		if len(input) != self.numInput:
+			print "len of input = ", len(input)
 			sys.exit ('Error: Invalid input size.')
 
 		output = []
