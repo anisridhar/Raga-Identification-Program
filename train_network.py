@@ -27,40 +27,60 @@ def writeData1(i=10):
 			writeFile(contents,target_filename)
 			print "Finished data write for " + g + str(k) + "!"
 
-def writeData_test(i=10):
-	gamakas = ["ma","ri"]
-	freqs = None
-	for g in gamakas:
-		for k in xrange(i):
-			filename = "SANK_PHRASES/" + g + str(k) + ".wav"
-			(D,faxis,fs) = getFFT(filename,15000)
-			print "fs = ", fs
-			print len(D)
 
-def writeData2(i=10):
-	gamakas = ["ma","ri"]
-	freqs = None
+def note_writeData(i=6):
 	contents = ""
 	out_data = ""
-	for g in gamakas:
-		for k in xrange(i):
-			filename = "SANK_PHRASES/" + g + str(k) + ".wav"
-			(D,faxis,fs) = getFFT(filename,15000)
-			if (freqs != None and freqs != fs):
-				print "freqs = ",freqs
-				return;
-			else: freqs = fs
-			D = normalize(D)
-			for data in D:
-				contents += str(data) + " "
-			contents += "\n"
-			if g == "ma": out_data += "1 0\n"
-			else: out_data += "0 1\n"
-			# target_filename = "freqData/" + g + "/" + str(k) + ".txt"
-			# writeFile(contents,target_filename)
-		print "Finished data write for " + g + "!"
-	writeFile(contents,"freqData/trainIN.txt")
-	writeFile(out_data,"freqData/trainOUT.txt")
+	inputfile = "FDATA/trainIN.txt"
+	outputfile = "FDATA/train_newOUT.txt"
+	contents = readFile(inputfile)
+	out_data = readFile(outputfile)
+	maxfreq = 15000
+	for k in xrange(i):
+		filename = "SANK_PHRASES/note" + str(k) + ".wav"
+		(D,faxis,fs) = getFFT(filename,maxfreq)
+		D = normalize(D,faxis,maxfreq)
+		for data in D:
+			contents += str(data) + " "
+		contents += "\n"
+		out_data += "0 0 1\n"
+	print "Writing data..."
+	writeData = (contents,"FDATA/train_newIN.txt")
+	addInfo(out_data,"FDATA/train_newOUT.txt")
+
+def fixOutData():
+	filename = "FDATA/trainOUT.txt"
+	contents = readFile(filename)
+	data = contents.splitlines()
+	new_data = ""
+	for line in data:
+		new_data += line + " 0\n"
+	writeFile(new_data,"FDATA/train_newOUT.txt")
+
+def getNewData():
+	fixOutData()
+	note_writeData()
+
+# def revertOutData():
+# 	filename = "FDATA/trainOUT.txt"
+# 	contents = readFile(filename)
+# 	data = contents.splitlines()
+# 	old_data = ""
+# 	for line in data:
+# 		old_data += line[:-2] + "\n"
+# 	writeFile(old_data,filename)
+
+
+# def makeData(filename,contents,out_data):
+# 	freqLimit = 15000
+# 	(D,faxis,fs) = getFFT(filename,freqLimit)
+# 	D = normalize(D)
+# 	for data in D:
+# 		contents += str(data) + " "
+# 	contents += "\n"
+# 	out_data = out + "\n"
+# 	return (contents,out_data)
+
 
 def writeData(i=10):
 	gamakas = ["ma","ri"]
@@ -101,6 +121,7 @@ def normalize(a,axis,maxfreq):
 	print "length of resized array is...", len(newA)
 	return newA
 
+
 def readData(i=10):
 	gamakas = ["ma","ri"]
 	gData = [[1,0],[0,1]]
@@ -131,9 +152,45 @@ def makeTest(i):
 	contents = readFile("FDATA/trainIN.txt").splitlines()[i]
 	writeFile(contents,"FDATA/testIN.txt")
 
-makeTest(5)
+
+getNewData()
+# makeTest(15)
 # writeData()
 # readSize("FDATA/trainIN.txt")
+def writeData_test(i=10):
+	gamakas = ["ma","ri"]
+	freqs = None
+	for g in gamakas:
+		for k in xrange(i):
+			filename = "SANK_PHRASES/" + g + str(k) + ".wav"
+			(D,faxis,fs) = getFFT(filename,15000)
+			print "fs = ", fs
+			print len(D)
+
+def writeData2(i=10):
+	gamakas = ["ma","ri"]
+	freqs = None
+	contents = ""
+	out_data = ""
+	for g in gamakas:
+		for k in xrange(i):
+			filename = "SANK_PHRASES/" + g + str(k) + ".wav"
+			(D,faxis,fs) = getFFT(filename,15000)
+			if (freqs != None and freqs != fs):
+				print "freqs = ",freqs
+				return;
+			else: freqs = fs
+			D = normalize(D)
+			for data in D:
+				contents += str(data) + " "
+			contents += "\n"
+			if g == "ma": out_data += "1 0\n"
+			else: out_data += "0 1\n"
+			# target_filename = "freqData/" + g + "/" + str(k) + ".txt"
+			# writeFile(contents,target_filename)
+		print "Finished data write for " + g + "!"
+	writeFile(contents,"FDATA/trainIN.txt")
+	writeFile(out_data,"FDATA/trainOUT.txt")
 
 
 
